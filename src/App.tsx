@@ -3,23 +3,53 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+import { useEffect } from "react";
+import { useThemeStore } from "@/store/themeStore";
+import Landing from "./pages/Landing";
+import Dashboard from "./pages/Dashboard";
+import Upload from "./pages/Upload";
+import Processing from "./pages/Processing";
+import ReviewQueue from "./pages/ReviewQueue";
+import Analytics from "./pages/Analytics";
+import History from "./pages/History";
+import Settings from "./pages/Settings";
+import { AppLayout } from "./components/layout/AppLayout";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+function ThemeInitializer({ children }: { children: React.ReactNode }) {
+  const { theme } = useThemeStore();
+  
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  }, [theme]);
+  
+  return <>{children}</>;
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <ThemeInitializer>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route element={<AppLayout />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/upload" element={<Upload />} />
+              <Route path="/processing" element={<Processing />} />
+              <Route path="/review-queue" element={<ReviewQueue />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/history" element={<History />} />
+              <Route path="/settings" element={<Settings />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeInitializer>
     </TooltipProvider>
   </QueryClientProvider>
 );
