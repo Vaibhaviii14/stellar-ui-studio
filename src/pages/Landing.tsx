@@ -61,10 +61,10 @@ export default function Landing() {
             <Button variant="outline" size="icon" onClick={toggleTheme}>
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </Button>
-            <Link to="/dashboard">
-              <Button variant="ghost">Dashboard</Button>
+            <Link to="/auth">
+              <Button variant="ghost">Login</Button>
             </Link>
-            <Link to="/dashboard">
+            <Link to="/auth">
               <Button variant="hero">Get Started</Button>
             </Link>
           </div>
@@ -93,13 +93,13 @@ export default function Landing() {
               Extract, validate, and export with unprecedented accuracy.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/dashboard">
+              <Link to="/auth">
                 <Button variant="hero" size="xl">
                   Start Processing
                   <ArrowRight className="w-5 h-5" />
                 </Button>
               </Link>
-              <Link to="/upload">
+              <Link to="/auth">
                 <Button variant="outline" size="xl">
                   Live Demo
                 </Button>
@@ -241,7 +241,7 @@ export default function Landing() {
             <p className="text-primary-foreground/80 max-w-xl mx-auto mb-8">
               Start processing invoices in seconds. No login required for demo.
             </p>
-            <Link to="/dashboard">
+            <Link to="/auth">
               <Button variant="secondary" size="xl">
                 Get Started — It's Free
                 <ArrowRight className="w-5 h-5" />
